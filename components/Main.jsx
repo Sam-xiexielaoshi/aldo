@@ -1,19 +1,17 @@
 import { useState } from "react";
 
 export default function Main() {
-  const [ingredients, setIngredient] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const ingredientsListItems = ingredients.map((ingredient) => (
     <li key={ingredient}>{ingredient}</li>
   ));
-  function handesubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+  function addIngredient(formData) {
     const newIngredient = formData.get("ingredient");
-    setIngredient((prev) => [...prev, newIngredient]);
+    setIngredients((prev) => [...prev, newIngredient]);
   }
   return (
     <main>
-      <form onSubmit={handesubmit} className="add-ingredient-form">
+      <form action={addIngredient} className="add-ingredient-form">
         <input
           type="text"
           placeholder="e.g. thyme or basil "
