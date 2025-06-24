@@ -1,13 +1,15 @@
 import { useState } from "react";
 import AldoRecipe from "./AldoRecipe";
 import IngredientList from "./IngredientList";
+import { getRecipeFromMistral } from "./ai.js";
 
 export default function Main() {
   const [ingredients, setIngredients] = useState([]);
   const [recipeShown, setRecipeShown] = useState(false);
 
-  function toggleRecipe() {
-    setRecipeShown((prevRecipeShown) => !prevRecipeShown);
+  async function toggleRecipe() {
+    const genertedRecipe = await getRecipeFromMistral(ingredients);
+    console.log(genertedRecipe);
   }
 
   function addIngredient(formData) {
