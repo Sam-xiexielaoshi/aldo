@@ -5,11 +5,11 @@ import { getRecipeFromMistral } from "./ai.js";
 
 export default function Main() {
   const [ingredients, setIngredients] = useState([]);
-  const [recipeShown, setRecipeShown] = useState(false);
+  const [recipe, setRecipe] = useState("");
 
   async function toggleRecipe() {
     const genertedRecipe = await getRecipeFromMistral(ingredients);
-    console.log(genertedRecipe);
+    setRecipe(genertedRecipe);
   }
 
   function addIngredient(formData) {
@@ -30,7 +30,7 @@ export default function Main() {
       {ingredients.length > 0 ? (
         <IngredientList ingredients={ingredients} toggleRecipe={toggleRecipe} />
       ) : null}
-      <section>{recipeShown ? <AldoRecipe /> : null}</section>
+      <section>{recipe ? <AldoRecipe recipe={recipe}/> : null}</section>
     </main>
   );
 }
